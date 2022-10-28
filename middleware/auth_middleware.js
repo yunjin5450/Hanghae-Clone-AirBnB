@@ -16,10 +16,10 @@ module.exports = (req, res, next) => {
     }
   
     try {
-      const { userId, nickname }  = jwt.verify(authToken, process.env.SECRET_KEY);
+      const { memberId, name, nickname }  = jwt.verify(authToken, process.env.SECRET_KEY);
       
       Members.findOne({
-        where: {userId:userId}
+        where: {memberId: memberId, name: name, nickname: nickname}
       }).then((user) => {
         res.locals.user = user;
         next();

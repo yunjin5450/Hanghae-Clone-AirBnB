@@ -51,6 +51,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: true,
     },
+    resCheckOut: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
     createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
