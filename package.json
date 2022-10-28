@@ -33,5 +33,6 @@
     "nodemon": "^2.0.20",
     "prettier": "^2.7.1"
   },
-  "description": ""
+  "description": "항해7주차 클론코딩 프로젝트",
+  "keywords": []
 }
