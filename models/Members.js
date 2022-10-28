@@ -10,17 +10,32 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Members.hasMany(models.Accomodations, {
+        foreignKey: "memberId",
+        // onDelete: "CASCADE",
+      });
+      Members.hasMany(models.Reservations, {
+        foreignKey: "memberId",
+        // onDelete: "CASCADE",
+      });
+      Members.hasMany(models.Reviews, {
+        foreignKey: "memberId",
+        // onDelete: "CASCADE",
+      });
+      Members.hasMany(models.Likes, {
+        foreignKey: "memberId",
+        // onDelete: "CASCADE",
+      });
     }
   }
   Members.init({
-    userId: {
+    memberId: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    userEmail: {
+    memberEmail: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
@@ -45,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    userImg: {
+    memberImg: {
       type: DataTypes.STRING,
       allowNull: true
     },
