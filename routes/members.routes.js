@@ -1,19 +1,19 @@
 const express = require('express');
 const router = express.Router();
 
-const MembersController = require('../controllers/MembersController');
+const MembersController = require('../controllers/members.controller.js');
 const membersController = new UserController();
 
-const upload = require('../middlewares/upload_image')
-const authMiddleware = require("../middlewares/auth_middleware");
+const upload = require('../middleware/upload_image')
+const authMiddleware = require("../middleware/auth_middleware");
 // const user_validation = require('../validation/user_validation')
 
 
 // 1.회원가입 
-router.post('/signup', upload.single('userPicture'), membersController.createUser)
+router.post('/signup', upload.single('userPicture'), membersController.createMember)
 
 // 2. 회원가입 - 아이디 중복확인
-router.post('/checkId', membersController.duplicatedId);
+router.post('/checkId', membersController.duplicatedEmail);
 
 // 3. 회원가입 - 닉네임 중복확인
 router.post('/checkname', membersController.duplicatedNickname);
