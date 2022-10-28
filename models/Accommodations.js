@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    userId: {
+    memberId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       // references: {
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     category:{
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     accName: {
       type: DataTypes.STRING,
@@ -84,7 +84,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
     },
     facilities: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     accImg: {
@@ -102,7 +102,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.Now
     },
     deletedAt: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.DATE,
     }
   }, {

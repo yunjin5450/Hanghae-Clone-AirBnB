@@ -74,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.Now
     },
     deletedAt: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.DATE,
     }
   }, {
