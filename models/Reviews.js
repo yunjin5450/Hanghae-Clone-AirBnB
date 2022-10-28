@@ -14,8 +14,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId",
         // onDelete: "CASCADE",
       });
-      Reviews.belongsTo(models.Accomodations, {
+      Reviews.belongsTo(models.Accommodations, {
         foreignKey: "accId",
+        // onDelete: "CASCADE",
+      });
+      Reviews.belongsTo(models.Reservations, {
+        foreignKey: "resId",
         // onDelete: "CASCADE",
       });
     }
@@ -36,6 +40,14 @@ module.exports = (sequelize, DataTypes) => {
       // }
     },
     memberId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      // references: {
+      //   model: 'Members',
+      //   key: 'userId',
+      // }
+    },
+    resId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       // references: {
