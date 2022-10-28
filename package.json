@@ -1,0 +1,37 @@
+{
+  "name": "week6_mini_blog",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thorjuri/week6_mini_BE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thorjuri/week6_mini_BE/issues"
+  },
+  "homepage": "https://github.com/Thorjuri/week6_mini_BE#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1239.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.5-lts.1",
+    "multer-s3": "^2.10.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.25.3",
+    "sequelize-cli": "^6.5.1"
+  },
+  "devDependencies": {
+    "joi": "^17.6.3",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.7.1"
+  },
+  "description": ""
+}
