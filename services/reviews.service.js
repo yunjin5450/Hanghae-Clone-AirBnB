@@ -4,8 +4,6 @@ class ReviewsService {
 
     reviewsRepository = new ReviewsRepository();
     
-
-    
     getReview = async (accId) => {
        
         try{
@@ -34,15 +32,15 @@ class ReviewsService {
         
     }
 
-    createReview = async (accId, revContent, memberId) => {
+    createReview = async (accId, resId, revContent, memberId) => {
         
-        const  memberReserveData = await this.reviewsRepository.memberReservation(accId, memberId)
+        const  memberReserveData = await this.reviewsRepository.memberReservation(accId, resId, memberId)
 
         if(!memberReserveData) {throw new Error ("후기를 작성할 권한이 없습니다")}
 
         try {
 
-            const createReviewData = await this.reviewsRepository.createReview(accId, revContent, memberId)
+            const createReviewData = await this.reviewsRepository.createReview(accId, resId, revContent, memberId)
 
             return (createReviewData)
 
@@ -52,14 +50,14 @@ class ReviewsService {
 
         }
         
-    }
+    };
 
 
-    amendReview = async (commentId, comment, userId) => {
+    amendReview = async (revId, revContent, memberId) => {
 
         try {
 
-            const amendCommentOne = await this.reviewsRepository.amendReview(commentId, comment, userId);
+            const amendCommentOne = await this.reviewsRepository.amendReview(revId, revContent, memberId);
 
             return amendCommentOne;
 
@@ -70,11 +68,18 @@ class ReviewsService {
         
     }
 
-    deleteReview = async (commentId, userId ) => {
+    deleteReview = async (revId, memberId ) => {
+        
+        try {
+            const deleteReviewResult = await this.reviewsRepository.deleteReview(revId, memberId );
 
-        const deleteCommentOne = await this.reviewsRepository.deleteReview(commentId, userId );
+            return deleteReviewResult;
 
-        return deleteCommentOne;
+        } catch (error) {
+
+            throw new Error ('후기 삭제에 실패하였습니다')
+        }
+        
     }
 }
 
