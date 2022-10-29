@@ -1,28 +1,21 @@
-const { Reservations } = require('../models')
+const express = require('express')
+const router = express.Router();
 
-class ReservationsRepository {
+const ReviewsController = require('../controllers/reviews.controller')
+const reviewsController = new ReviewsController();
+const authMiddleware = require("../middleware/auth_middleware");
 
-//예약 등록 하기
-createReservations = async(resId, accId, memberId, personNum, resCheckin, resCheckOut,createdAt, updatedAt, deletedAt) => {
-    //try{
-        const createData = await Reservations.create({
-        resId, 
-        accId, 
-        memberId, 
-        personNum, 
-        resCheckin, 
-        resCheckOut,
-        createdAt, 
-        updatedAt, 
-        deletedAt
-        })
-        return createData
-    // }catch{
-    //     const error = new Error(`서버 실행 중 오류가 발생했습니다.`)
-    //     error.statusCode = 500
-    //     throw error
-    // }
-    }
-}
+//1.후기 전체조회
+router.get('/:accId', reviewsController.getReview)
 
-module.exports = ReservationsRepository
+//2.후기 상세조회
+router.get('/:accId/:revId', reviewsController.getReviewDetail)
+
+//3.후기 작성
+router.post('/:accId', authMiddleware, reviewsController.createReview)
+
+//4.후기 수정
+router.put('/:accId', authMiddleware, reviewsController.amendReview)
+
+//5.후기 삭제
+router.delete('/:accId', authMiddleware, reviewsController.deleteReview)
