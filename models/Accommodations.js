@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "accId",
         // onDelete: "CASCADE",
       });
+      Accommodations.hasMany(models.Likes, {
+        foreignKey: "accId",
+        // onDelete: "CASCADE",
+      });
     }
   }
   Accommodations.init({
@@ -31,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    userId: {
+    memberId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       // references: {

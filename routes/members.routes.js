@@ -10,7 +10,7 @@ const authMiddleware = require("../middleware/auth_middleware");
 
 
 // 1.회원가입 
-router.post('/signup', upload.single('userPicture'), membersController.createMember)
+router.post('/signup', upload.single('memberImg'), membersController.createMember)
 
 // 2. 회원가입 - 아이디 중복확인
 router.post('/checkId', membersController.duplicatedEmail);
@@ -28,7 +28,9 @@ router.get('/me', authMiddleware, membersController.getMyProfile);
 router.get('/:memberId', authMiddleware, membersController.getMemberProfie)
 
 // 6. 유저 프로필 수정
-router.put('/:memberId/update', authMiddleware, membersController.updateMember);
+router.put('/', authMiddleware, membersController.updateMember);
 
+//7. 유저 프로필 삭제
+router.delete('/', authMiddleware, membersController.deleteMember);
 
 module.exports = router;
