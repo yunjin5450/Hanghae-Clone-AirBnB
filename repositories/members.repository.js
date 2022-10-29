@@ -14,12 +14,12 @@ class MembersRepository {
         return result;
     };
 
-     // 아이디 중복확인
-     duplicatedEmail = async(memberEmail)=> {
+     // 이메일 중복확인
+    duplicatedEmail = async(memberEmail)=> {
         const existEmail = await Members.findOne({ where : { memberEmail }});
         return existEmail;
     };
-// 닉네임 중복확인
+    // 닉네임 중복확인
     duplicatedNickname = async(nickname)=> {
         const existNickname = await Members.findOne({ where : { nickname }});
         return existNickname;        

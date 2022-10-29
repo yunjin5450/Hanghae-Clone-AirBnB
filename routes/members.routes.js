@@ -31,5 +31,4 @@ router.get('/:memberId', authMiddleware, membersController.getMemberProfie)
 router.put('/:memberId/update', authMiddleware, membersController.updateMember);
 
 
-
-module.exports = MembersRouter;
+module.exports = router;
