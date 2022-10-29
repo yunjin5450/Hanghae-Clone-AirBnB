@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "accId",
         // onDelete: "CASCADE",
       });
+      Accommodations.hasMany(models.Likes, {
+        foreignKey: "accId",
+        // onDelete: "CASCADE",
+      });
     }
   }
   Accommodations.init({

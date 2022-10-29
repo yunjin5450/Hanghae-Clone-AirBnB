@@ -15,12 +15,12 @@ class MembersService {
       };
 
 
-    createUser = async(authorization, fileData, memberEmail, password, nickname, name, gender, phoneNum) => {
+    createMember = async(authorization, fileData, memberEmail, password, nickname, name, gender, phoneNum) => {
         const status = await this.exceptLogin(authorization); 
             
         if(status){ throw new Error('이미 로그인 되어 있습니다.')}; //예외처리. 이미 로그인 된 상태
 
-        if(!memberEmail || !nickname || !password || !name || !gender || !phoneNum){ 
+        if(!memberEmail || !nickname || !password || !name || !phoneNum){ 
             throw new Error('필수 정보를 모두 입력해주세요')
         };  //예외처리. 공란
 
@@ -66,7 +66,7 @@ class MembersService {
 
     loginUser = async(authorization, memberEmail, password)=> {
 
-        const status = await this.excptLogin(authorization); 
+        const status = await this.exceptLogin(authorization); 
         
         if(status){ throw new Error('이미 로그인 되어 있습니다.')};
           //예외처리. 이미 로그인 된 상태
@@ -128,6 +128,24 @@ class MembersService {
         return updateUserData;
 
     };
+
+    deleteMember = async (memberId) => {
+
+        const member = await this.membersRepository.getUserById(memberId)
+        
+        if( !member ) {throw new Error ('존재하지 않는 사용자입니다.')} //예외처리. 불일치
+        try {
+            
+            const deleteMemberResult = await this.membersRepository.deleteMember(memberId)
+
+            return {message: "탈퇴 되었습니다"}
+
+        } catch (error) {
+
+            throw new Error ("탈퇴에 실패하였습니다")
+        }
+    }
+        
 }
 
 module.exports = MembersService;

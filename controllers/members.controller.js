@@ -40,7 +40,7 @@ class MembersController {
         const { nickname } = req.body;
         try{
             const duplicatedNicknameData = await this.membersService.duplicatedNickname(nickname);
-            res.status(201).send(duplicatedNicknameData);
+            res.status(200).send(duplicatedNicknameData);
         }catch(error){
             res.status(400).json({error: error.message})
         };
@@ -97,8 +97,8 @@ class MembersController {
 
     updateMember = async(req, res, next)=> {
         
-        const {memberId} = req.params
-        const {name ,nickname, gender, phoneNum} = req.body;
+        const { memberId } = res.locals.user
+        const { name ,nickname, gender, phoneNum } = req.body;
         try {
 
             const updateMemberData = await this.membersService.updateMember(memberId, name ,nickname, gender, phoneNum);
@@ -110,6 +110,18 @@ class MembersController {
 
         };
     };
+
+    deleteMember = async(req, res, next) => {
+
+        const { memberId } = res.locals.user;
+
+        try {
+            const deleteMemberData = await this.membersService.deleteMember(memberId);
+            res.status(200).send(deleteMemberData);
+        } catch (error) {
+            res.status(401).json({})
+        }
+    }
 };
 
 module.exports = MembersController;
