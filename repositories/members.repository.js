@@ -104,7 +104,7 @@ class MembersRepository {
     //프로필 삭제
     deleteMember = async(memberId) => {
         
-        await Members.update({deletedAt: Date.now},{where: {memberId}})
+        await Members.update({deletedAt: Date.now()},{where: {memberId}})
 
         return {};
     }

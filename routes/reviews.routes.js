@@ -12,10 +12,10 @@ router.get('/:accId', reviewsController.getReview)
 router.get('/:accId/:revId', reviewsController.getReviewDetail)
 
 //3.후기 작성
-router.post('/:accId', authMiddleware, reviewsController.createReview)
+router.post('/:accId/:resId', authMiddleware, reviewsController.createReview)
 
 //4.후기 수정
-router.put('/:accId', authMiddleware, reviewsController.amendReview)
+router.put('/:accId/:revId', authMiddleware, reviewsController.amendReview)
 
 //5.후기 삭제
-router.delete('/:accId', authMiddleware, reviewsController.deleteReview)
+router.delete('/:accId/:revId', authMiddleware, reviewsController.deleteReview)
