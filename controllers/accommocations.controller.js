@@ -4,7 +4,7 @@ class AccommoController {
     accommoService = new AccommoService();
 
     hostAccommodation = async (req, res, next) => {
-        try{
+        try {
             // const { memberId } = res.locals.user;
             const {
                 memberId,
@@ -19,7 +19,7 @@ class AccommoController {
                 facilities,
                 accImg,
             } = req.body;
-    
+
             const hostedAccommo = await this.accommoService.hostAccommodation(
                 memberId,
                 accName,
@@ -33,18 +33,19 @@ class AccommoController {
                 facilities,
                 accImg
             );
-    
+
             res.status(201).json({ message: '숙소를 호스트했습니다.' });
-        } catch(err) {
+        } catch (err) {
             next(err);
         }
     };
 
     getAllAccommodations = async (req, res, next) => {
         try {
-            const accommoList = await this.accommoService.getAllAccommodations();
+            const accommoList =
+                await this.accommoService.getAllAccommodations();
 
-            res.status(200).json({data: accommoList});
+            res.status(200).json({ data: accommoList });
         } catch (err) {
             next(err);
         }
@@ -52,28 +53,42 @@ class AccommoController {
 
     getAccommoDetails = async (req, res, next) => {
         try {
-            const { accId } = req.params;
-            const accommoDetails = await this.accommoService.getAccommoDetails(accId);
+            // const { accId } = req.params;
+            const accommoDetails = await this.accommoService.getAccommoDetails(
+                accId
+            );
 
-            res.status(200).json({data: accommoDetails});
+            res.status(200).json({ data: accommoDetails });
         } catch (err) {
             next(err);
         }
-    }
+    };
 
     updateAccommo = async (req, res, next) => {
+        // const { memberId } = res.locals.user;
         const { accId } = req.params;
-        const { 
+        const { maxPerson, bed, room, toilet, thumbnail, accImg } = req.body;
+
+        await this.accommoService.updateAccommo(
+            accId,
             maxPerson,
             bed,
             room,
             toilet,
             thumbnail,
             accImg
-        } = req.body;
+        );
 
-        await this.accommoService.updateAccommo(accId);
+        res.status(201).json({ message: '숙소 정보를 수정했습니다.' });
+    };
 
+    deleteAccommo = async (req, res, next) => {
+        // const { memberId } = res.locals.user;
+        const { accId } = req.params;
+
+        await this.accommoService.deleteAccommo(accId);
+
+        res.status(201).json({ message: '숙소를 삭제했습니다.' });
     }
 }
 

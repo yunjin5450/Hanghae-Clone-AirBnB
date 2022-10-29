@@ -13,6 +13,10 @@ class AccommoRepository {
     getAccommoDetails = async(option) => {
         return await Accommodations.findOne(option);
     }
+
+    deleteAccommo = async(option) => {
+        return await Accommodations.destroy(option);
+    }
 }
 
 module.exports = AccommoRepository;

@@ -9,7 +9,7 @@ const accommoController = new AccommoController();
 router.post("/", accommoController.hostAccommodation);
 router.get("/", accommoController.getAllAccommodations);
 router.get("/:accId", accommoController.getAccommoDetails);
-router.put("/:accId", accommoController.updateAccommo);
-// router.delete("/:accId", accommoController.deleteAccommo);
+router.patch("/:accId", accommoController.updateAccommo);
+router.delete("/:accId", accommoController.deleteAccommo);
 
 module.exports = router;

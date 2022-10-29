@@ -60,7 +60,22 @@ class AccommoService {
         } else {
             throw new Error('숙소 상세조회를 불러오는 데 실패했습니다.')
         }
-    }
+    };
+
+    updateAccommo = async (accId) => {
+        
+    };
+
+    deleteAccommo = async (accId) => {
+        const option = {where:{accId}}
+        const deletedAccommo = await this.accommoRepository.deleteAccommo(option);
+
+        if (deletedAccommo) {
+            return '숙소를 삭제했습니다.';
+        } else {
+            throw new Error('숙소를 삭제하는 데 실패했습니다.');
+        }
+    };
 }
 
 module.exports = AccommoService;
