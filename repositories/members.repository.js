@@ -98,8 +98,16 @@ class MembersRepository {
         
         await Members.update({ name ,nickname, gender, phoneNum },{ where: { memberId } });  // nickname 중복확인은 '/checkname' api 이용
 
-        return {message : "프로필 업데이트 성공"};
+        return {};
     };
+
+    //프로필 삭제
+    deleteMember = async(memberId) => {
+        
+        await Members.update({deletedAt: Date.now},{where: {memberId}})
+
+        return {};
+    }
 };  
 
 
