@@ -6,8 +6,6 @@ const membersController = new MembersController();
 
 const upload = require('../middleware/upload_image')
 const authMiddleware = require("../middleware/auth_middleware");
-// const user_validation = require('../validation/user_validation')
-
 
 // 1.회원가입 
 router.post('/signup', upload.single('userPicture'), membersController.createMember)
