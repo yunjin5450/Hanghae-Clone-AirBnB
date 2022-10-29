@@ -4,10 +4,8 @@ const port = 3000;
 require('./models');
 const Router = require('./routes/index.js')
 
-
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-
 
 app.use(express.json());
 app.use(cookieParser())
