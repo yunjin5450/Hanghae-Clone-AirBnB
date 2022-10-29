@@ -67,15 +67,17 @@ class AccommoController {
     updateAccommo = async (req, res, next) => {
         // const { memberId } = res.locals.user;
         const { accId } = req.params;
-        const { maxPerson, bed, room, toilet, thumbnail, accImg } = req.body;
+        const { price, description, maxPerson, bed, room, bathroom, facilities, accImg } = req.body;
 
         await this.accommoService.updateAccommo(
             accId,
+            price,
+            description,
             maxPerson,
             bed,
             room,
-            toilet,
-            thumbnail,
+            bathroom,
+            facilities,
             accImg
         );
 
