@@ -42,8 +42,8 @@ class ReviewsController {Id
         const { memberId } = res.locals.users;
         
         try{
-           const createComments = await this.reviewsService.createComment({ accId, resId, revContent, memberId })
-            res.status(201).json({data: createComments, message: "후기를 작성하였습니다."})
+           const createReviewData = await this.reviewsService.createComment({ accId, resId, revContent, memberId })
+            res.status(201).json({data: createReviewData, message: "후기를 작성하였습니다."})
         } catch (error) {
             res.status(400).json({error: error.message})
         }
