@@ -26,13 +26,13 @@ class MembersService {
 
         if(!fileData) {
             //프로필 사진 없으면
-            const createMemberData = await this.membersRepository.createUser(memberEmail, password, nickname, name, gender, phoneNum);
+            const createMemberData = await this.membersRepository.createMember(memberEmail, password, nickname, name, gender, phoneNum);
             return createMemberData;
 
         } else if (fileData) {
             //프로필 사진 있으면
             const memberImg = fileData.location //S3에 저장된 멤버의 이미지 파일의 경로를 가지고옴
-            const createMemberData = await this.membersRepository.createUserWithImg(memberImg, memberEmail, password, nickname, name, gender, phoneNum);
+            const createMemberData = await this.membersRepository.createMemberWithImg(memberImg, memberEmail, password, nickname, name, gender, phoneNum);
             return createMemberData;
 
         } else {
@@ -45,7 +45,7 @@ class MembersService {
         
         if(!memberEmail){ throw new Error ("이메일을 입력하세요")}; //예외처리. 공란
 
-        const duplicatedIdData = await this.membersRepository.duplicatedEmail(userId);
+        const duplicatedIdData = await this.membersRepository.duplicatedEmail(memberEmail);
        
         if(duplicatedIdData){ throw new Error ('중복된 이메일 입니다.')}; //예외처리. 중복
 
@@ -77,6 +77,7 @@ class MembersService {
         if (!loginData){ throw new Error ('일치하는 회원정보가 없습니다. ')}; //예외처리. 일치 정보 없음
 
         const token = jwt.sign({ 
+            memberId: loginData.memberId,
             memberEmail: loginData.memberEmail, 
             name:loginData.name, 
             nickname: loginData.nickname 
@@ -103,7 +104,7 @@ class MembersService {
         const getMemberReserveResult = await this.membersRepository.getMemberReserve(memberId); //예약한 내역찾기
         const getMemberLikeResult = await this.membersRepository.getLikeAccomodation(memberId); //찜한 내역 찾기
         
-        return {memberInfo: member, getMemberReserveResult, getMemberLikeResult};        
+        return {memberInfo: member, ReservationData: getMemberReserveResult, LikeData: getMemberLikeResult};        
     };
 
     getMemberProfie = async (memberId) => {
@@ -116,14 +117,12 @@ class MembersService {
     }
 
 
-    updateMember = async(memberId, name ,nickname, gender, phoneNum)=> {
-        const member = await this.membersRepository.getUserById(memberId)
+    updateMember = async(memberId, name ,nickname, password, gender, phoneNum)=> {
+        const member = await this.membersRepository.getMemberById(memberId)
         
         if( !member ) {throw new Error ('존재하지 않는 사용자입니다.')} //예외처리. 불일치
-
-        if( !nickname || !phoneNum || !name || !gender){throw new Error ("수정할 내용을 입력하세요")};  //예외처리. 공란
         
-        const updateUserData = await this.membersRepository.updateMember(memberId, name ,nickname, gender, phoneNum);
+        const updateUserData = await this.membersRepository.updateMember(memberId, name ,nickname, password, gender, phoneNum);
 
         return updateUserData;
 
@@ -131,14 +130,17 @@ class MembersService {
 
     deleteMember = async (memberId) => {
 
-        const member = await this.membersRepository.getUserById(memberId)
+        const member = await this.membersRepository.getMemberById(memberId)
         
         if( !member ) {throw new Error ('존재하지 않는 사용자입니다.')} //예외처리. 불일치
+        
+        if( member.deletedAt ) {throw new Error ('이미 탈퇴된 회원입니다')} //예외처리, 이미 탈퇴된 회원
+
         try {
             
             const deleteMemberResult = await this.membersRepository.deleteMember(memberId)
 
-            return {message: "탈퇴 되었습니다"}
+            return deleteMemberResult;
 
         } catch (error) {
 
