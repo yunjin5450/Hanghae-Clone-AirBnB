@@ -3,7 +3,7 @@
 // const MembersRouter = require('./');
 // const AccommodationsRouter = require('./');
 // const ReviewsRouter = require('./');
-// const LikesRouter = require('./likes.route')
+// const LikesRouter = require('./likes.routes')
 // const ReservationsRouter = require('./')
 // //전역 미들웨어
 
