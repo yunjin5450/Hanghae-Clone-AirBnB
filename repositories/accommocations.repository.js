@@ -9,6 +9,10 @@ class AccommoRepository {
     getAllAccommodations = async () => {
         return await Accommodations.findAll();
     }
+
+    getAccommoDetails = async(option) => {
+        return await Accommodations.findOne(option);
+    }
 }
 
 module.exports = AccommoRepository;
