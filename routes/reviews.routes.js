@@ -19,3 +19,6 @@ router.put('/:accId/:revId', authMiddleware, reviewsController.amendReview)
 
 //5.후기 삭제
 router.delete('/:accId/:revId', authMiddleware, reviewsController.deleteReview)
+
+
+module.exports = router;

@@ -62,12 +62,12 @@ class MembersController {
     };
 
     getMyProfile = async(req, res, next)=> {
-
+        
         const { memberId } = res.locals.user
-
+        
         try {
 
-            const getMyProfileResult = await this.membersService.getMyProfile(memberId);
+            const getMyProfileResult = await this.membersService.getMyProfile( memberId );
 
             res.status(200).send(getMyProfileResult);
 
@@ -98,11 +98,11 @@ class MembersController {
     updateMember = async(req, res, next)=> {
         
         const { memberId } = res.locals.user
-        const { name ,nickname, gender, phoneNum } = req.body;
+        const { name ,nickname, password, gender, phoneNum } = req.body;
         try {
 
-            const updateMemberData = await this.membersService.updateMember(memberId, name ,nickname, gender, phoneNum);
-            res.status(201).send(updateMemberData);
+            await this.membersService.updateMember(memberId, name ,nickname, password, gender, phoneNum);
+            res.status(201).json({message: "정보를 수정하였습니다"});
 
         } catch(error) {
 
@@ -116,10 +116,13 @@ class MembersController {
         const { memberId } = res.locals.user;
 
         try {
-            const deleteMemberData = await this.membersService.deleteMember(memberId);
-            res.status(200).send(deleteMemberData);
+
+            await this.membersService.deleteMember(memberId);
+            res.status(200).json({message: "탈퇴 되었습니다"});
+
         } catch (error) {
-            res.status(401).json({})
+
+            res.status(401).json({error: error.message})
         }
     }
 };
