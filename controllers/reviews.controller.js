@@ -1,4 +1,4 @@
-const ReviewsController = require('../services/reviews.service');
+const ReviewsService = require('../services/reviews.service');
 
 class ReviewsController {Id
 

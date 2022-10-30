@@ -4,12 +4,12 @@ const { Op } = require("sequelize");
 
 class MembersRepository {
 
-    createUser = async(memberEmail, password, nickname, name, gender, phoneNum) =>{
+    createMember = async(memberEmail, password, nickname, name, gender, phoneNum) =>{
         const result = await Members.create({ memberEmail, password, nickname, name, gender, phoneNum });
         return result;
     };
 
-    createUserWithImg = async(memberImg, memberEmail, password, nickname, name, gender, phoneNum) =>{
+    createMemberWithImg = async(memberImg, memberEmail, password, nickname, name, gender, phoneNum) =>{
         const result = await Members.create({ memberImg, memberEmail, password, nickname, name, gender, phoneNum });
         return result;
     };
@@ -29,6 +29,7 @@ class MembersRepository {
     loginUser = async(memberEmail, password)=> {     
 
         const member = await Members.findOne({ where: { memberEmail, password } });
+
         return member;
 
     };
@@ -37,7 +38,18 @@ class MembersRepository {
     getMemberById = async(memberId)=> {
 
         const member = await Members.findOne({ where : { memberId }});
-        return member;
+        
+        return {
+            memberId: member.memberId,
+            memberEmail: member.memberEmail,
+            nickname: member.nickname,
+            name: member.name,
+            gender: member.gender,
+            phoneNum: member.phoneNum,
+            memberImg: member.memberImg,
+            createdAt: member.createdAt,
+            deletedAt: member.deletedAt
+        };
 
     }; 
 
@@ -55,18 +67,14 @@ class MembersRepository {
         //숙소 Id를 이용해서 숙소 테이블의 내용 가져오기
         const ReserveAccomodation = await Accommodations.findAll({where: { accId: memberReserveAccomodation }})
         
-        return { 
-            ReservationData: {
-                
+        return {           
                 accName: ReserveAccomodation.accName,
                 accImg: ReserveAccomodation.accImg,
                 accAddr: ReserveAccomodation.accAddr,
                 price: ReserveAccomodation.price,
                 resCheckIn: memberReserve.resCheckIn,
                 resCheckOut: memberReserve.resCheckOut
-
-            } , 
-        };
+            };
     };
 
     getLikeAccomodation = async(memberId) => {
@@ -84,26 +92,24 @@ class MembersRepository {
         const LikeAccomodation = Accommodations.findAll({where: {accId: LikeAccomodationNumber}})
 
         return {
-            LikeData: {
                 accName: LikeAccomodation.accName,
                 accImg: LikeAccomodation.accImg,
                 accAddr: LikeAccomodation.accAddr,
                 price: LikeAccomodation.price
-            }
         }
     };
 
     // 유저 프로필 수정
-    updateMember = async(memberId, name ,nickname, gender, phoneNum)=> {
+    updateMember = async(memberId, name ,nickname, password, gender, phoneNum)=> {
         
-        await Members.update({ name ,nickname, gender, phoneNum },{ where: { memberId } });  // nickname 중복확인은 '/checkname' api 이용
+        await Members.update({ name ,nickname, password, gender, phoneNum },{ where: { memberId } });  // nickname 중복확인은 '/checkname' api 이용
 
         return {};
     };
 
     //프로필 삭제
     deleteMember = async(memberId) => {
-        
+
         await Members.update({deletedAt: Date.now()},{where: {memberId}})
 
         return {};

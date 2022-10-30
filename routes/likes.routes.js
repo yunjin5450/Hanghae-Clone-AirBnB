@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const authMiddleware = require("../middlewares/auth_middleware")
+const authMiddleware = require("../middleware/auth_middleware")
 
 const LikesController = require('../controllers/likes.controller')
 const likesController = new LikesController();
