@@ -80,7 +80,7 @@ class MembersService {
             memberId: loginData.memberId,
             memberEmail: loginData.memberEmail, 
             name:loginData.name, 
-            nickname: loginData.nickname 
+            nickname: loginData.nickname
         }, 
             process.env.SECRET_KEY
         );
@@ -117,15 +117,26 @@ class MembersService {
     }
 
 
-    updateMember = async(memberId, name ,nickname, password, gender, phoneNum)=> {
+    updateMember = async(fileData, memberId, name ,nickname, password, gender, phoneNum)=> {
         const member = await this.membersRepository.getMemberById(memberId)
         
         if( !member ) {throw new Error ('존재하지 않는 사용자입니다.')} //예외처리. 불일치
+
+        if (!fileData) {
+            const updateUserData = await this.membersRepository.updateMember(memberId, name ,nickname, password, gender, phoneNum);
+
+            return updateUserData;
+    
+        } else if (fileData) {
+            const memberImg = fileData.location 
+
+            const updateUserData = await this.membersRepository.updateMemberWithImg(memberImg, memberId, name ,nickname, password, gender, phoneNum);
+
+            return updateUserData;
+        } else {
+            throw new Error ('회원 정보 수정에 실패하였습니다')
+        }
         
-        const updateUserData = await this.membersRepository.updateMember(memberId, name ,nickname, password, gender, phoneNum);
-
-        return updateUserData;
-
     };
 
     deleteMember = async (memberId) => {

@@ -20,6 +20,8 @@ class AccommoController {
                 accImg,
             } = req.body;
 
+            console.log(req.body)
+
             const hostedAccommo = await this.accommoService.hostAccommodation(
                 memberId,
                 accName,
