@@ -66,8 +66,8 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.Now
     },
     deletedAt: {
-        allowNull: true,
-        type: DataTypes.DATE,
+      allowNull: true,
+      type: DataTypes.DATE,
     }
   }, {
     sequelize,

@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 require('./models');
-const Router = require('./routes/index.js')
+const router = require('./routes/index.js')
 
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -15,7 +15,7 @@ app.use(cors({
   exposedHeaders: "Authorization"
 }));
 
-app.use("/", Router);
+app.use("/", router);
 
 app.listen(port, () => {
   console.log(port, '포트로 서버가 열렸어요!');
