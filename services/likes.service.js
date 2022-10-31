@@ -6,15 +6,13 @@ class LikesService {
     //내가 찜한 숙소 조회
     getLikes = async (memberId) => {
         //try{
-            const findGetLikes = await this.likesRepository.getLikes(memberId)
-            findGetLikes.map((getlist) => {
+            const getlist = await this.likesRepository.getLikes(memberId)
                 return{
                     accId : getlist.accId,
                     memberId : getlist.memberId,
-                    createdAt : getlist.createdAt
+                    createdAt : getlists.createdAt,
+                    updatedAt : getlist.updatedAt
                 }
-            })
-            return findGetLikes
         // }catch{
         //     const error = new Error(`찜한 숙소 목록을 불러오지 못했습니다.`)
         //     error.statusCode = 500
