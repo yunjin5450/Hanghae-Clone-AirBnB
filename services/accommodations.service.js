@@ -1,8 +1,10 @@
 const { Accommodations } = require('../models');
 const AccommoRepository = require('../repositories/accommodations.repository');
+const MembersRepository = require('../repositories/members.repository');
 
 class AccommoService {
     accommoRepository = new AccommoRepository();
+    membersRepository = new MembersRepository();
 
     hostAccommodation = async (
         memberId,
@@ -57,9 +59,10 @@ class AccommoService {
         const accommoDetails = await this.accommoRepository.getAccommoDetails(
             option
         );
+        const accommoHost = await this.membersRepository.getMemberById(accommoDetails.memberId);
 
         if (accommoDetails) {
-            return accommoDetails;
+            return {accommoInfo: accommoDetails, hostInfo: accommoHost};
         } else {
             throw new Error('숙소 상세조회를 불러오는 데 실패했습니다.');
         }
