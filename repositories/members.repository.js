@@ -107,6 +107,13 @@ class MembersRepository {
         return {};
     };
 
+    updateMemberWithImg = async(memberImg, memberId, name ,nickname, password, gender, phoneNum)=> {
+        
+        await Members.update({ memberImg, name ,nickname, password, gender, phoneNum },{ where: { memberId } });  // nickname 중복확인은 '/checkname' api 이용
+
+        return {};
+    };
+
     //프로필 삭제
     deleteMember = async(memberId) => {
 

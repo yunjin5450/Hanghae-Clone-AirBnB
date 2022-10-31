@@ -52,8 +52,9 @@ class MembersController {
 
         try{
             const loginData = await this.membersService.loginUser(authorization, memberEmail, password);
+
             res.header('Authorization',loginData.token)
-            res.status(200).json({memberEmail: loginData.memberEmail, name:loginData.name, nickname: loginData.nickname, message: loginData.message})
+            res.status(200).json({ loginData })
 
         }catch(error){
 
@@ -99,9 +100,10 @@ class MembersController {
         
         const { memberId } = res.locals.user
         const { name ,nickname, password, gender, phoneNum } = req.body;
+        const fileData = req.file
         try {
 
-            await this.membersService.updateMember(memberId, name ,nickname, password, gender, phoneNum);
+            await this.membersService.updateMember(fileData, memberId, name ,nickname, password, gender, phoneNum);
             res.status(201).json({message: "정보를 수정하였습니다"});
 
         } catch(error) {
