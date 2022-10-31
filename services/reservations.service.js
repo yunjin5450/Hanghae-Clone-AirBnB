@@ -1,4 +1,4 @@
-const ReservationsRepository = require('../repositories/reservations.reponsitory')
+const ReservationsRepository = require('../repositories/reservations.repository')
 
 class ReservationsService{
     reservationsRepository = new ReservationsRepository()
