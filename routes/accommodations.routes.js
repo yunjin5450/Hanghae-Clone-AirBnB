@@ -4,6 +4,7 @@ const authMiddleware = require("../middleware/auth_middleware");
 
 const AccommoController = require("../controllers/accommodations.controller");
 const accommoController = new AccommoController();
+const upload = require('../middleware/upload_image')
 
 // 숙소 호스팅 하기(숙소 글 올리기) API
 router.post("/", authMiddleware ,accommoController.hostAccommodation);

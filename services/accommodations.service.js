@@ -19,6 +19,7 @@ class AccommoService {
         facilities,
         accImg
     ) => {
+
         const option = Accommodations.build({
             memberId,
             accName,

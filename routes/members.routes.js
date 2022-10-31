@@ -26,7 +26,7 @@ router.get('/me', authMiddleware, membersController.getMyProfile);
 router.get('/:memberId', authMiddleware, membersController.getMemberProfie)
 
 // 6. 유저 프로필 수정
-router.patch('/amend', authMiddleware, membersController.updateMember);
+router.patch('/amend', upload.single('memberImg'), authMiddleware, membersController.updateMember);
 
 //7. 유저 프로필 삭제
 router.delete('/delete', authMiddleware, membersController.deleteMember);
