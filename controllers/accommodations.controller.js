@@ -5,9 +5,8 @@ class AccommoController {
 
     hostAccommodation = async (req, res, next) => {
         try {
-            // const { memberId } = res.locals.user;
+            const { memberId } = res.locals.user;
             const {
-                memberId,
                 accName,
                 accAddr,
                 description,
@@ -71,10 +70,8 @@ class AccommoController {
 
     getAccommoDetails = async (req, res, next) => {
         try {
-            // const { accId } = req.params;
-            const accommoDetails = await this.accommoService.getAccommoDetails(
-                accId
-            );
+            const { accId } = req.params;
+            const accommoDetails = await this.accommoService.getAccommoDetails(accId);
 
             res.status(200).json({ data: accommoDetails });
         } catch (err) {
