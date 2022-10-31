@@ -10,11 +10,7 @@ class LikesService {
                 return{
                     accId : getlist.accId,
                     memberId : getlist.memberId,
-<<<<<<< HEAD
-                    createdAt : getlist.createdAt,
-=======
                     createdAt : getlists.createdAt,
->>>>>>> 420e49f84688958f32cb6da4004f257f4d57cfa3
                     updatedAt : getlist.updatedAt
                 }
         // }catch{
