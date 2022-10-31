@@ -55,6 +55,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    lat: {
+      type: DataTypes.DOUBLE,
+      allowNull: true
+    },
+    lng: {
+        type: DataTypes.DOUBLE,
+        allowNull: true
+    },
     description: {
       type: DataTypes.STRING,
       allowNull: false
@@ -63,13 +71,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    lat: {
-      type: DataTypes.DECIMAL,
+    rating: {
+      type: DataTypes.DOUBLE,
       allowNull: true
-    },
-    lng: {
-        type: DataTypes.DECIMAL,
-        allowNull: true
     },
     maxPerson: {
         type: DataTypes.INTEGER,
