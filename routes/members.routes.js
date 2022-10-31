@@ -4,11 +4,11 @@ const router = express.Router();
 const MembersController = require('../controllers/members.controller.js');
 const membersController = new MembersController();
 
-// const upload = require('../middleware/upload_image')
+const upload = require('../middleware/upload_image')
 const authMiddleware = require("../middleware/auth_middleware");
 
 // 1.회원가입 
-// router.post('/signup', upload.single('memberImg'), membersController.createMember)
+router.post('/signup', upload.single('memberImg'), membersController.createMember)
 
 // 2. 회원가입 - 아이디 중복확인
 router.post('/checkId', membersController.duplicatedEmail);
