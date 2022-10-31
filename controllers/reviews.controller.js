@@ -1,6 +1,6 @@
 const ReviewsService = require('../services/reviews.service');
 
-class ReviewsController {Id
+class ReviewsController {
 
     reviewsService = new ReviewsService()
 
@@ -38,15 +38,16 @@ class ReviewsController {Id
     createReview = async (req, res, next) => {
 
         const { accId, resId } = req.params;
-        const { revContent } = req.body;
-        const { memberId } = res.locals.users;
-        
-        try{
-           const createReviewData = await this.reviewsService.createComment({ accId, resId, revContent, memberId })
+        const { rating, revContent } = req.body;
+        const { memberId } = res.locals.user;
+        console.log("@@@@@", memberId);
+
+        // try{
+            const createReviewData = await this.reviewsService.createReview(accId, resId, rating, revContent, memberId)
             res.status(201).json({data: createReviewData, message: "후기를 작성하였습니다."})
-        } catch (error) {
-            res.status(400).json({error: error.message})
-        }
+        // } catch (error) {
+        //     res.status(400).json({error: error.message})
+        // }
     }
 
     

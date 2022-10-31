@@ -18,23 +18,27 @@ class ReviewsRepository {
         return {data: getReviewResult}
     };
 
-    memberReservation = async (accId, memberId) => {
-
-        const memberResevationLog = await Reservations.findOne({where: {accId, memberId}})
-
+    memberReservation = async (resId, memberId) => {
+        console.log("@@@@@@@repo@memberReservation comes");
+        const memberResevationLog = await Reservations.findOne({where: {resId, memberId}})
+        console.log("@@@@@@@repo@memberReservation comes", memberResevationLog);
+        
         return memberResevationLog
     }
-
-
-    createReview = async ( accId, resId, revContent, memberId ) => {
+    
+    
+    createReview = async ( accId, resId, rating, revContent, memberId ) => {
+        console.log("@@@@@@@repo@createReview comes");
         const createReviews = await Reviews.create({
             accId,
+            memberId,
             resId,
-            revContent,
-            memberId
+            rating,
+            revContent
         });
-
-        return { data: createReviews };
+        console.log("@@@@@@@repo@createReview comes", createReviews);
+        
+        return createReviews;
     };
 
     amendReview = async ( revId, revContent, memberId ) => {

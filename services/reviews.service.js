@@ -31,27 +31,21 @@ class ReviewsService {
         }
         
     }
-
-    createReview = async (accId, resId, revContent, memberId) => {
+    
+    createReview = async (accId, resId, rating, revContent, memberId) => {
+        const memberReserveData = await this.reviewsRepository.memberReservation(resId, memberId);
         
-        const  memberReserveData = await this.reviewsRepository.memberReservation(accId, resId, memberId)
+        if(!memberReserveData) {throw new Error ("후기를 작성할 권한이 없습니다")};
 
-        if(!memberReserveData) {throw new Error ("후기를 작성할 권한이 없습니다")}
+        // try {
+            const createReviewData = await this.reviewsRepository.createReview(accId, resId, rating, revContent, memberId);
 
-        try {
+            return createReviewData;
 
-            const createReviewData = await this.reviewsRepository.createReview(accId, resId, revContent, memberId)
-
-            return (createReviewData)
-
-        } catch (error) {
-
-            throw new Error ("후기를 작성에 실패하였습니다")
-
-        }
-        
+        // } catch (error) {
+        //     throw new Error ("후기를 작성에 실패하였습니다")
+        // }
     };
-
 
     amendReview = async (revId, revContent, memberId) => {
 
