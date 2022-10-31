@@ -1,5 +1,5 @@
 const { Accommodations } = require('../models');
-const AccommoRepository = require('../repositories/accommocations.repository');
+const AccommoRepository = require('../repositories/accommodations.repository');
 
 class AccommoService {
     accommoRepository = new AccommoRepository();

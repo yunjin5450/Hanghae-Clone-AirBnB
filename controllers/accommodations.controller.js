@@ -1,4 +1,4 @@
-const AccommoService = require('../services/accommocations.service');
+const AccommoService = require('../services/accommodations.service');
 
 class AccommoController {
     accommoService = new AccommoService();
@@ -41,11 +41,27 @@ class AccommoController {
     };
 
     getAllAccommodations = async (req, res, next) => {
+        let data = [];
         try {
             const accommoList =
                 await this.accommoService.getAllAccommodations();
 
-            res.status(200).json({ data: accommoList });
+            for(let i = 0 ; i < accommoList.length; i++) {
+                data.push({
+                    accId: accommoList[i].accId,
+                    accName: accommoList[i].accName,
+                    accAddr: accommoList[i].accAddr,
+                    price: accommoList[i].price,
+                    rating: accommoList[i].rating,
+                    maxPerson: accommoList[i].maxPerson,
+                    bed: accommoList[i].bed,
+                    room: accommoList[i].room,
+                    toilet: accommoList[i].toilet,
+                    accImg: accommoList[i].accImg
+                })
+            }
+            
+            res.status(200).json({ data: data });
         } catch (err) {
             next(err);
         }
