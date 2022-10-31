@@ -37,7 +37,7 @@ class ReviewsRepository {
         return { data: createReviews };
     };
 
-    amendReview = async ( revId, revContent, memberId) => {
+    amendReview = async ( revId, revContent, memberId ) => {
 
         const amendReviewData = await Reviews.update({revContent},{where: {revId, memberId}})
 

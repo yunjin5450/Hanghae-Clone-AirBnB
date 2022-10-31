@@ -16,10 +16,10 @@ const upload = multer({
         bucket: process.env.AWS_BUCKET_NAME,
         contentType: multerS3.AUTO_CONTENT_TYPE,
         key(req, file, cb) {
-            cb(null, `original/${Date.now()}_${file.originalname}`);
+            cb(null, `cloneCoding/${Date.now()}_${file.originalname}`);
         },
     }),
-    limits: { fileSize: 10 * 1024 * 1024},
+    limits: { fileSize: 10 * 3600 * 3600},
 });
 
 module.exports = upload;
