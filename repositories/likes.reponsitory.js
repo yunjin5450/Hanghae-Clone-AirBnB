@@ -1,17 +1,14 @@
 const { Likes } = require('../models');
-const { Accommodations } = require('../models');
+//const { Accommodations } = require('../models')
 
 class LikesRepository {
 
-    //내가 좋아요한 숙소 조회
+    //내가 찜한 숙소 조회
 
-// let likes = []
-// result likes
-
-    getLikes = async (accId, memberId) => {
+    getLikes = async (memberId) => {
         //try {
             const findGetLikes = await Likes.findAll({
-                where:{accId, memberId},
+                where:{memberId},
                 order : [['accId','DESC']]  
         })
         return findGetLikes
@@ -21,48 +18,53 @@ class LikesRepository {
         //     throw error
         // }
     }
-
-    //숙소 좋아요 누르기
+    
+    //숙소 찜 누르기
     useLikes = async (accId, memberId) => {
         //try {
             const findUseLikes = await Likes.findOne({
-                where:accId, memberId
+                where: {accId, memberId}
             })
             return findUseLikes
+            
         // } catch {
-        //     const error = new Error(`좋아요 실행 중 오류가 발생했습니다.`)
+        //     const error = new Error(`찜하기 실행 중 오류가 발생했습니다.`)
         //     error.statusCode = 500
         //     throw error   
         // }
     }
 
-    //숙소 좋아요 수락
+    //숙소 찜할 게시글이 없을 때
+    // disappearAcc = async (accId) => {
+    //     const likesAcc =  await Accommodations.findOne({
+    //         where : {accId} })
+    //     if(!Accommodations.accId){ throw new Error('숙소정보가 존재하지 않습니다.')} 
+    //     return likesAcc
+    // }
+
+    //숙소 찜 수락
     updateLikes = async (accId, memberId) => {
         //try {
-            const likesAccommodations = await Accommodations.findOne({
-                where: {accId, memberId}
-            })
-            //await Accommodations.increment({likes: 1}, {where :{accId}})
+            const likesAccommodations = await Likes.findOne({where: {accId, memberId}})
             await Likes.create({accId, memberId})
             return likesAccommodations
         // } catch {
-        //     const error = new Error(`좋아요 요청 중 오류가 발생했습니다.`)
+        //     const error = new Error(`찜하기 중 오류가 발생했습니다.`)
         //     error.statusCode = 500
         //     throw error
         // }
     }
 
-    //숙소 좋아요 취소
+    //숙소 찜 취소
     deleteLikes = async (accId, memberId) => {
         //try { 
-            const likesDelete = await Accommodations.findOne({
+            const likesDelete = await Likes.findOne({
                 where : {accId, memberId}
             })
-            //await Accommodations.decrement({likes: 1}, {where: {accId}})
             await Likes.destroy({where: {accId, memberId}})
             return likesDelete
         // } catch {
-        //     const error = new Error(`좋아요 취소 중 오류가 발생했습니다.`)
+        //     const error = new Error(`찜하기 취소 중 오류가 발생했습니다.`)
         //     error.statusCode =500
         //     throw error
         // }
