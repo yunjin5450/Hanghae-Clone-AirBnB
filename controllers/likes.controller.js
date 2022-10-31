@@ -6,7 +6,7 @@ class LikesController {
     //내가 찜한 숙소 조회
     getLikes = async (req, res, next) => {
         //try {
-            const { memberId } =  req.params;
+            const {memberId } = req.params
             const getLikes = await this.likesService.getLikes(memberId)
             res.status(200).json({data: getLikes})            
         // } catch(err){
