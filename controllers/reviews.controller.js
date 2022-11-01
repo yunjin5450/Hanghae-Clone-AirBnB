@@ -10,7 +10,7 @@ class ReviewsController {
         try {
 
             const getAllReview = await this.reviewsService.getReview(accId)
-            res.status(200).json(getAllReview)
+            res.status(200).json({data: getAllReview})
 
         } catch (error) {
 
