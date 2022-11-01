@@ -49,6 +49,9 @@ class AccommoService {
         const hostedAccommo = await this.accommoRepository.saveAccommodation(
             option, accImg
         );
+        // const hostedAccommo = await this.accommoRepository.saveAccommodation(
+        //     option
+        // );
 
         if (hostedAccommo) {
             return hostedAccommo;
