@@ -7,7 +7,7 @@ class ReviewsRepository {
 
         const getAllReview = await Reviews.findAll({ where: { accId } });
 
-        return {data: getAllReview};
+        return getAllReview;
     };
 
 

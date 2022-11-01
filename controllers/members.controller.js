@@ -1,7 +1,9 @@
-const MembersService = require('../services/members.service')
+const MembersService = require('../services/members.service');
+const NotificationsService = require('../services/notifications.service');
 
 class MembersController {
     membersService = new MembersService();
+    notificationsService = new NotificationsService();
 
     createMember = async(req, res, next) => {
         const { authorization } = req.headers;
@@ -9,9 +11,11 @@ class MembersController {
         const fileData = req.file
 
         try{
-
             const createMemberData = await this.membersService.createMember(authorization, fileData, memberEmail, password, nickname, name, gender, phoneNum);
             
+
+            console.log("@@controller", createMemberData.memberId);
+            await this.notificationsService.sendSignUpCongrats(createMemberData.memberId, "가입을 축하드립니다!");
             res.status(201).send(createMemberData);
             
         } catch(error) {

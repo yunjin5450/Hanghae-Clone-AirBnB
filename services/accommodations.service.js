@@ -1,10 +1,12 @@
 const { Accommodations } = require('../models');
 const AccommoRepository = require('../repositories/accommodations.repository');
 const MembersRepository = require('../repositories/members.repository');
+const ReviewsRepository = require('../repositories/reviews.repository');
 
 class AccommoService {
     accommoRepository = new AccommoRepository();
     membersRepository = new MembersRepository();
+    reviewsRepository = new ReviewsRepository();
 
     hostAccommodation = async (
         filesData,
@@ -20,16 +22,15 @@ class AccommoService {
         facilities
     ) => {
         
+
         const accImg = filesData.map((data) => {
             let result = [];
-
+                
             result= data.location
-
+                
             return result;
-        }).toString()
-
-        console.log(accImg)
-
+        })
+            
         const option = Accommodations.build({
             memberId,
             accName,
@@ -41,11 +42,12 @@ class AccommoService {
             room,
             bathroom,
             facilities,
-            accImg,
         });
+
+    
         
         const hostedAccommo = await this.accommoRepository.saveAccommodation(
-            option
+            option, accImg
         );
 
         if (hostedAccommo) {
@@ -66,14 +68,15 @@ class AccommoService {
     };
 
     getAccommoDetails = async (accId) => {
-        const option = { where: { accId } };
+        
         const accommoDetails = await this.accommoRepository.getAccommoDetails(
-            option
+            accId
         );
         const accommoHost = await this.membersRepository.getMemberById(accommoDetails.memberId);
+        const accommoReviews = await this.reviewsRepository.getReview(accId);
 
         if (accommoDetails) {
-            return {accommoInfo: accommoDetails, hostInfo: accommoHost};
+            return {accommoInfo: accommoDetails, hostInfo: accommoHost, accommoReviews: accommoReviews};
         } else {
             throw new Error('숙소 상세조회를 불러오는 데 실패했습니다.');
         }
