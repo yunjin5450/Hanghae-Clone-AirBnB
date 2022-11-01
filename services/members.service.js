@@ -1,6 +1,7 @@
 const MembersRepository = require('../repositories/members.repository');
 const jwt = require("jsonwebtoken");
 require('dotenv').config()
+const bcrypt = require('bcrypt');
 
 class MembersService {
 
@@ -23,16 +24,17 @@ class MembersService {
         if(!memberEmail || !nickname || !password || !name || !phoneNum){ 
             throw new Error('필수 정보를 모두 입력해주세요')
         };  //예외처리. 공란
-
+        const encryptPassword = bcrypt.hashSync(password, 10)
+        
         if(!fileData) {
             //프로필 사진 없으면
-            const createMemberData = await this.membersRepository.createMember(memberEmail, password, nickname, name, gender, phoneNum);
+            const createMemberData = await this.membersRepository.createMember(memberEmail, encryptPassword, nickname, name, gender, phoneNum);
             return createMemberData;
 
         } else if (fileData) {
             //프로필 사진 있으면
             const memberImg = fileData.location //S3에 저장된 멤버의 이미지 파일의 경로를 가지고옴
-            const createMemberData = await this.membersRepository.createMemberWithImg(memberImg, memberEmail, password, nickname, name, gender, phoneNum);
+            const createMemberData = await this.membersRepository.createMemberWithImg(memberImg, memberEmail, encryptPassword, nickname, name, gender, phoneNum);
             return createMemberData;
 
         } else {
@@ -68,28 +70,36 @@ class MembersService {
 
         const status = await this.exceptLogin(authorization); 
         
-        if(status){ throw new Error('이미 로그인 되어 있습니다.')};
-          //예외처리. 이미 로그인 된 상태
+        if(status){ throw new Error('이미 로그인 되어 있습니다.')};  //예외처리. 이미 로그인 된 상태
+       
         if(!memberEmail || !password){ throw new Error('아이디와 비밀번호를 모두 입력하세요.')};  //예외처리. 공란
 
-        const loginData = await this.membersRepository.loginUser(memberEmail, password);
+        const loginData = await this.membersRepository.loginUser(memberEmail); // 해당회원 존재하는지 확인
         
+        //비밀번호 일치 하는지 확인
+        if( bcrypt.compareSync(password, loginData.password ) === false ) {
+            
+            throw new Error('비밀번호가 일치하지 않습니다.')
+        }
+
         if (!loginData){ throw new Error ('일치하는 회원정보가 없습니다. ')}; //예외처리. 일치 정보 없음
 
         const token = jwt.sign({ 
             memberId: loginData.memberId,
             memberEmail: loginData.memberEmail, 
             name:loginData.name, 
-            nickname: loginData.nickname
+            nickname: loginData.nickname,
         }, 
             process.env.SECRET_KEY
         );
         
         return {
             token:`Bearer ${ token }`, 
+            memberId: loginData.memberId,
             memberEmail: loginData.memberEmail, 
             name:loginData.name, 
-            nickname: loginData.nickname, 
+            nickname: loginData.nickname,
+            memberImg: loginData.memberImg, 
             message: '로그인 성공'
         };  //토큰 발행
     };

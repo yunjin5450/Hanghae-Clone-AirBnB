@@ -7,6 +7,7 @@ class AccommoService {
     membersRepository = new MembersRepository();
 
     hostAccommodation = async (
+        filesData,
         memberId,
         accName,
         accAddr,
@@ -16,9 +17,18 @@ class AccommoService {
         bed,
         room,
         bathroom,
-        facilities,
-        accImg
+        facilities
     ) => {
+        
+        const accImg = filesData.map((data) => {
+            let result = [];
+
+            result= data.location
+
+            return result;
+        }).toString()
+
+        console.log(accImg)
 
         const option = Accommodations.build({
             memberId,
@@ -33,6 +43,7 @@ class AccommoService {
             facilities,
             accImg,
         });
+        
         const hostedAccommo = await this.accommoRepository.saveAccommodation(
             option
         );
