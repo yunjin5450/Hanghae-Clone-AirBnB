@@ -19,7 +19,7 @@ const upload = multer({
             cb(null, `cloneCoding/${Date.now()}_${file.originalname}`);
         },
     }),
-    limits: { fileSize: 10 * 3600 * 3600},
+    limits: { fileSize: 30 * 4800 * 4800},
 });
 
 module.exports = upload;
