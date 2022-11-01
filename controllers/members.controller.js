@@ -13,7 +13,9 @@ class MembersController {
         try{
             const createMemberData = await this.membersService.createMember(authorization, fileData, memberEmail, password, nickname, name, gender, phoneNum);
             
-            await this.notificationsService.sendSignUpCongrats(createMemberData.memberId);
+
+            console.log("@@controller", createMemberData.memberId);
+            await this.notificationsService.sendSignUpCongrats(createMemberData.memberId, "가입을 축하드립니다!");
             res.status(201).send(createMemberData);
             
         } catch(error) {

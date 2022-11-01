@@ -21,16 +21,18 @@ class AccommoService {
         bathroom,
         facilities
     ) => {
-        
-        const accImg = filesData.map((data) => {
-            let result = [];
+        if(filesData) {
 
-            result= data.location
-
-            return result;
-        }).toString()
-
-        console.log(accImg)
+            const accImg = filesData.map((data) => {
+                let result = [];
+                
+                result= data.location
+                
+                return result;
+            }).toString()
+            
+            console.log(accImg)
+        }
 
         const option = Accommodations.build({
             memberId,
@@ -43,7 +45,7 @@ class AccommoService {
             room,
             bathroom,
             facilities,
-            accImg,
+            // accImg,
         });
         
         const hostedAccommo = await this.accommoRepository.saveAccommodation(
