@@ -7,12 +7,7 @@ class LikesService {
     getLikes = async (memberId) => {
         //try{
             const getlist = await this.likesRepository.getLikes(memberId)
-                return{
-                    accId : getlist.accId,
-                    memberId : getlist.memberId,
-                    createdAt : getlists.createdAt,
-                    updatedAt : getlist.updatedAt
-                }
+                return getlist
         // }catch{
         //     const error = new Error(`찜한 숙소 목록을 불러오지 못했습니다.`)
         //     error.statusCode = 500
