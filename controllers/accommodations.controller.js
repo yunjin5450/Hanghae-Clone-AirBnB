@@ -18,8 +18,7 @@ class AccommoController {
                 bathroom,
                 facilities,
                 } = req.body;
-                
-            const accommoFacilities = facilities.join(",");
+
             const filesData = req.files;
 
             const hostedAccommo = await this.accommoService.hostAccommodation(
@@ -33,7 +32,7 @@ class AccommoController {
                 bed,
                 room,
                 bathroom,
-                accommoFacilities
+                facilities
             );
 
             res.status(201).json({ message: '숙소를 호스트했습니다.' });
