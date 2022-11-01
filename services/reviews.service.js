@@ -37,14 +37,14 @@ class ReviewsService {
         
         if(!memberReserveData) {throw new Error ("후기를 작성할 권한이 없습니다")};
 
-        // try {
+        try {
             const createReviewData = await this.reviewsRepository.createReview(accId, resId, rating, revContent, memberId);
 
             return createReviewData;
 
-        // } catch (error) {
-        //     throw new Error ("후기를 작성에 실패하였습니다")
-        // }
+        } catch (error) {
+            throw new Error ("후기를 작성에 실패하였습니다")
+        }
     };
 
     amendReview = async (revId, revContent, memberId) => {
