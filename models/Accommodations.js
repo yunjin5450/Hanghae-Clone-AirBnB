@@ -93,7 +93,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     facilities: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     accImg: {
         type: DataTypes.STRING,
