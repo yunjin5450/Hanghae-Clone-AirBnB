@@ -3,7 +3,6 @@ const MembersService = require('../services/members.service')
 class MembersController {
     membersService = new MembersService();
 
-
     createMember = async(req, res, next) => {
         const { authorization } = req.headers;
         const { memberEmail, password, nickname, name, gender, phoneNum } = req.body;
