@@ -32,19 +32,15 @@ findReservationsId = async (req, res, next) =>{
 //예약 등록 작성 하기
 createReservations = async(req, res, next) => {
     //try{
-        const { memberId } = res.locals.user
-        const { resId, accId, personNum, resCheckin, resCheckOut,createdAt, updatedAt, deletedAt } = req.body 
+        const { accId } = req.params;
+        const { personNum } = req.body;
+        const { memberId } = res.locals.users;
+        
 
-        await this.reservationsService.createReservations(
-            resId, 
-            accId, 
-            memberId, 
-            personNum, 
-            resCheckin, 
-            resCheckOut,
-            createdAt, 
-            updatedAt, 
-            deletedAt
+        await this.reservationsService.createReservations( 
+            accId,
+            personNum,
+            memberId
         )
         const createReservations = await this.createReservations.findAllReservations()
         res.status(200).json({data : createReservations})
