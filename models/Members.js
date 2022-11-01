@@ -61,7 +61,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     memberImg: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
+      defaultValue: "https://a0.muscache.com/defaults/user_pic-225x225.png?v=3"
     },
     createdAt: {
       allowNull: false,

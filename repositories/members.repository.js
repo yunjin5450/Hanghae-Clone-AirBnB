@@ -4,13 +4,13 @@ const { Op } = require("sequelize");
 
 class MembersRepository {
 
-    createMember = async(memberEmail, password, nickname, name, gender, phoneNum) =>{
-        const result = await Members.create({ memberEmail, password, nickname, name, gender, phoneNum });
+    createMember = async(memberEmail, encryptPassword, nickname, name, gender, phoneNum) =>{
+        const result = await Members.create({ memberEmail, password: encryptPassword, nickname, name, gender, phoneNum });
         return result;
     };
 
-    createMemberWithImg = async(memberImg, memberEmail, password, nickname, name, gender, phoneNum) =>{
-        const result = await Members.create({ memberImg, memberEmail, password, nickname, name, gender, phoneNum });
+    createMemberWithImg = async(memberImg, memberEmail, encryptPassword, nickname, name, gender, phoneNum) =>{
+        const result = await Members.create({ memberImg, memberEmail, password: encryptPassword, nickname, name, gender, phoneNum });
         return result;
     };
 
@@ -26,9 +26,9 @@ class MembersRepository {
     };
 
     //로그인
-    loginUser = async(memberEmail, password)=> {     
+    loginUser = async(memberEmail)=> {     
 
-        const member = await Members.findOne({ where: { memberEmail, password } });
+        const member = await Members.findOne({ where: { memberEmail } });
 
         return member;
 
