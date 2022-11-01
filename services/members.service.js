@@ -95,6 +95,7 @@ class MembersService {
         
         return {
             token:`Bearer ${ token }`, 
+            memberId: loginData.memberId,
             memberEmail: loginData.memberEmail, 
             name:loginData.name, 
             nickname: loginData.nickname,
