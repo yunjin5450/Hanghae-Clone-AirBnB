@@ -29,12 +29,15 @@ class MembersService {
         if(!fileData) {
             //프로필 사진 없으면
             const createMemberData = await this.membersRepository.createMember(memberEmail, encryptPassword, nickname, name, gender, phoneNum);
+
             return createMemberData;
 
         } else if (fileData) {
             //프로필 사진 있으면
             const memberImg = fileData.location //S3에 저장된 멤버의 이미지 파일의 경로를 가지고옴
+
             const createMemberData = await this.membersRepository.createMemberWithImg(memberImg, memberEmail, encryptPassword, nickname, name, gender, phoneNum);
+
             return createMemberData;
 
         } else {

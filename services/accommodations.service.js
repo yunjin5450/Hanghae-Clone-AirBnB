@@ -21,19 +21,16 @@ class AccommoService {
         bathroom,
         facilities
     ) => {
-        if(filesData) {
+        
 
-            const accImg = filesData.map((data) => {
-                let result = [];
+        const accImg = filesData.map((data) => {
+            let result = [];
                 
-                result= data.location
+            result= data.location
                 
-                return result;
-            }).toString()
+            return result;
+        })
             
-            console.log(accImg)
-        }
-
         const option = Accommodations.build({
             memberId,
             accName,
@@ -45,11 +42,12 @@ class AccommoService {
             room,
             bathroom,
             facilities,
-            // accImg,
         });
+
+    
         
         const hostedAccommo = await this.accommoRepository.saveAccommodation(
-            option
+            option, accImg
         );
 
         if (hostedAccommo) {
@@ -70,9 +68,9 @@ class AccommoService {
     };
 
     getAccommoDetails = async (accId) => {
-        const option = { where: { accId } };
+        
         const accommoDetails = await this.accommoRepository.getAccommoDetails(
-            option
+            accId
         );
         const accommoHost = await this.membersRepository.getMemberById(accommoDetails.memberId);
         const accommoReviews = await this.reviewsRepository.getReview(accId);

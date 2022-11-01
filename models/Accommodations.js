@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "accId",
         // onDelete: "CASCADE",
       });
+      Accommodations.hasMany(models.AccommodationsPictures, {
+        foreignKey: "accId",
+        onDelete: "CASCADE",
+      });
     }
   }
   Accommodations.init({
@@ -92,10 +96,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
     },
     facilities: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    accImg: {
         type: DataTypes.STRING,
         allowNull: true
     },
