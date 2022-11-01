@@ -21,7 +21,7 @@ class AccommoController {
 
             console.log(req.body)
 
-            const hostedAccommo = await this.accommoService.hostAccommodation(
+            await this.accommoService.hostAccommodation(
                 memberId,
                 accName,
                 accAddr,

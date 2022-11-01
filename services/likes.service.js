@@ -1,4 +1,4 @@
-const LikesRepository = require('../repositories/likes.reponsitory');
+const LikesRepository = require('../repositories/likes.repository');
 
 class LikesService {
     likesRepository = new LikesRepository();
