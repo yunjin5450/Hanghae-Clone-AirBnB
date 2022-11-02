@@ -35,24 +35,28 @@ class AccommoRepository {
     getAccommoDetails = async (accId) => {
         const result = await Accommodations.findOne({where: {accId}, include: {model: AccommodationsPictures}});
 
-        console.log(result);
-
         return result
     };
 
     updateAccommo = async (
-        accId,
-        price,
-        description,
-        maxPerson,
-        bed,
-        room,
-        bathroom,
-        facilities,
-        accImg
+            accId,
+            accName,
+            accAddr,
+            price,
+            description,
+            maxPerson,
+            bed,
+            room,
+            bathroom,
+            facilities,
+            accImg
     ) => {
-        return await Accommodations.update(
+        
+        const result = await Accommodations.update(
+
             {
+                accName,
+                accAddr,
                 price,
                 description,
                 maxPerson,
@@ -60,14 +64,33 @@ class AccommoRepository {
                 room,
                 bathroom,
                 facilities,
-                accImg,
             },
             { where: { accId } }
         );
+        console.log(result)
+
+        await AccommodationsPictures.update(
+            {
+                thumbnail: accImg[0],
+                image1: accImg[1],
+                image2: accImg[2],
+                image3: accImg[3],
+                image4: accImg[4]
+            },
+            { where: {accId}}
+        );
+
+        return result;
     };
 
     deleteAccommo = async (option) => {
-        return await Accommodations.destroy(option);
+
+        console.log(option)
+        const result = await Accommodations.destroy(option);
+
+        await AccommodationsPictures.destroy(option)
+        
+        return result;
     };
 }
 
