@@ -18,10 +18,10 @@ class ReviewsService {
        
     }
 
-    getReviewDetail = async (accId, revId) => {
+    getReviewDetail = async (revId) => {
 
         try { 
-            const getReviewDetailData = await this.reviewsRepository.getReviewDetail(accId, revId)
+            const getReviewDetailData = await this.reviewsRepository.getReviewDetail(revId)
 
             return getReviewDetailData
 
@@ -32,40 +32,72 @@ class ReviewsService {
         
     }
     
-    createReview = async (accId, resId, rating, revContent, memberId) => {
+    createReview = async (fileData, accId, resId, rating, revContent, memberId) => {
         const memberReserveData = await this.reviewsRepository.memberReservation(resId, memberId);
         
         if(!memberReserveData) {throw new Error ("후기를 작성할 권한이 없습니다")};
+        
+        if(!fileData) { 
 
-        try {
             const createReviewData = await this.reviewsRepository.createReview(accId, resId, rating, revContent, memberId);
+    
+            return createReviewData;
+    
+        } else if (fileData) {
 
+            const revImg = fileData.location
+
+            const createReviewData = await this.reviewsRepository.createReviewWithImg(revImg, accId, resId, rating, revContent, memberId);
+    
             return createReviewData;
 
-        } catch (error) {
-            throw new Error ("후기를 작성에 실패하였습니다")
+        } else {
+            
+            throw new Error ("후기 작성에 실패하였습니다")
+            
         }
+
     };
+    
+   
+    amendReview = async (fileData, revId, revContent, memberId) => {
 
-    amendReview = async (revId, revContent, memberId) => {
+        const existReviewData = await this.reviewsRepository.getReviewDetail(revId)
 
-        try {
+        if(existReviewData.memberId !== memberId) { throw new Error ('수정 권한이 없습니다')}
 
-            const amendCommentOne = await this.reviewsRepository.amendReview(revId, revContent, memberId);
+        if (!fileData) {
 
-            return amendCommentOne;
+            const amendReviewResult = await this.reviewsRepository.amendReview(revId, revContent);
 
-        } catch (error) {
+            return amendReviewResult;
+
+        } else if (fileData) {
+
+            const revImg = fileData.location  
+
+            const amendReviewResult = await this.reviewsRepository.amendReviewWithImg(revImg, revId, revContent);
+
+            return amendReviewResult;
+        } else {
+
             throw new Error ('후기 수정에 실패하였습니다')
-        }
 
+        }
         
+            
+   
     }
 
     deleteReview = async (revId, memberId ) => {
         
+        
+        const existReviewData = await this.reviewsRepository.getReviewDetail(revId)
+
+        if(existReviewData.memberId !== memberId) { throw new Error ('삭제 권한이 없습니다')}
+
         try {
-            const deleteReviewResult = await this.reviewsRepository.deleteReview(revId, memberId );
+            const deleteReviewResult = await this.reviewsRepository.deleteReview(revId) ;
 
             return deleteReviewResult;
 

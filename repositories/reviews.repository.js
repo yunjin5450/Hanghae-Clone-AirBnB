@@ -11,24 +11,24 @@ class ReviewsRepository {
     };
 
 
-    getReviewDetail = async (accId, revId) => {
+    getReviewDetail = async (revId) => {
 
-        const getReviewResult = await Reviews.findOne({where: { accId, revId}})
+        const getReviewResult = await Reviews.findOne({where: { revId }})
 
-        return {data: getReviewResult}
+        return getReviewResult
     };
 
     memberReservation = async (resId, memberId) => {
-        console.log("@@@@@@@repo@memberReservation comes");
+        
         const memberResevationLog = await Reservations.findOne({where: {resId, memberId}})
-        console.log("@@@@@@@repo@memberReservation comes", memberResevationLog);
+        
         
         return memberResevationLog
     }
     
     
     createReview = async ( accId, resId, rating, revContent, memberId ) => {
-        console.log("@@@@@@@repo@createReview comes");
+        
         const createReviews = await Reviews.create({
             accId,
             memberId,
@@ -36,21 +36,44 @@ class ReviewsRepository {
             rating,
             revContent
         });
-        console.log("@@@@@@@repo@createReview comes", createReviews);
+        
         
         return createReviews;
     };
 
-    amendReview = async ( revId, revContent, memberId ) => {
+    createReviewWithImg = async ( revImg, accId, resId, rating, revContent, memberId ) => {
+        
+        const createReviews = await Reviews.create({
+            revImg,
+            accId,
+            memberId,
+            resId,
+            rating,
+            revContent
+        });
+        
+        
+        return createReviews;
+    }
 
-        const amendReviewData = await Reviews.update({revContent},{where: {revId, memberId}})
+
+    amendReview = async ( revId, revContent ) => {
+
+        const amendReviewData = await Reviews.update({revContent},{where: {revId}})
 
         return amendReviewData;
     };
 
-    deleteReview = async (revId, memberId) => {
+    amendReviewWithImg = async ( revImg, revId, revContent ) => {
+
+        const amendReviewData = await Reviews.update({revImg, revContent},{where: {revId}})
+
+        return amendReviewData;
+    };
+
+    deleteReview = async (revId) => {
         
-        const deleteReviewData = await Reviews.update({deletedAt: Date.now()},{where: {revId, memberId}})
+        const deleteReviewData = await Reviews.update({deletedAt: Date.now()},{where: {revId}})
 
         return deleteReviewData;
     };
