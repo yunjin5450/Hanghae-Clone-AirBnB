@@ -20,10 +20,10 @@ class LikesService {
             const useLikes = await this.likesRepository.useLikes(accId, memberId)
             if(!useLikes){
                 await this.likesRepository.updateLikes(accId, memberId)
-                return '찜하기를 등록하였습니다'
+                return {message: '찜하기를 등록하였습니다', like: true}
             }else{
                 await this.likesRepository.deleteLikes(accId, memberId)
-                return '찜하기를 취소하였습니다.'
+                return {message: '찜하기를 취소하였습니다', like: false}
             }
         }catch{
             const error = new Error(`찜한 숙소 불러오는데 실패했습니다.`)
