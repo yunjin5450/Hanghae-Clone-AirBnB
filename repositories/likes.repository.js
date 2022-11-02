@@ -1,5 +1,6 @@
 const { Likes } = require('../models');
-
+const { Accommodations } = require('../models')
+const { AccommodationsPictures } = require('../models')
 class LikesRepository {
 
     //내가 찜한 숙소 조회
@@ -8,10 +9,37 @@ class LikesRepository {
             const findGetLikes = await Likes.findAll(
                 {
                     where : {memberId},
-                    order : [['createdAt','DESC']] 
-                })       
-            return findGetLikes
+                    order : [['createdAt','DESC']],
+                })
+              
+            
+            const accommodationIdList = findGetLikes.map((data) => {
+                
+                const result = data.accId;
+
+                return result
+            })
+
+            const findLikeAccommodationInfo = await Accommodations.findAll({where: {accId: accommodationIdList}})
+
+            const findLikeAccommodationImg = await AccommodationsPictures.findAll({where: {accId: accommodationIdList}, attributes: ['thumbnail']})
+
+            let data = [];
+
+            for (let i = 0; i < findLikeAccommodationInfo.length; i++) {
+                
+                data.push(
+                    findLikeAccommodationInfo[i],
+                    findLikeAccommodationImg[i]
+                )
+            }
+
+            console.log(data)
+
+            return data
+
         } catch {
+
             const error = new Error(`서버 실행 중 오류가 발생했습니다.`)
             error.statusCode = 500
             throw error
