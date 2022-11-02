@@ -112,7 +112,7 @@ class MembersService {
     loginInfo = async(memberId) => {
         const loginInfo = await this.membersRepository.getMemberById(memberId);
         const notificationsCount = await this.notificationsRepository.countNotifications(memberId);
-        return {loginInfo: loginInfo, notiCount: notificationsCount};
+        return {loginInfo: loginInfo, notiCounotificationsCount};
     };
 
     getMyProfile = async(memberId) => {
