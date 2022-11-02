@@ -79,13 +79,16 @@ class MembersService {
 
         const loginData = await this.membersRepository.loginUser(memberEmail); // 해당회원 존재하는지 확인
         
+        
+        if (!loginData){ throw new Error ('일치하는 회원정보가 없습니다. ')}; //예외처리. 일치 정보 없음
+        
+
         //비밀번호 일치 하는지 확인
         if( bcrypt.compareSync(password, loginData.password ) === false ) {
             
             throw new Error('비밀번호가 일치하지 않습니다.')
         }
 
-        if (!loginData){ throw new Error ('일치하는 회원정보가 없습니다. ')}; //예외처리. 일치 정보 없음
 
         const token = jwt.sign({ 
             memberId: loginData.memberId,
@@ -103,7 +106,7 @@ class MembersService {
             name:loginData.name, 
             nickname: loginData.nickname,
             memberImg: loginData.memberImg, 
-            message: '로그인 성공'
+            message: `${loginData.name}님 로그인 완료`
         };  //토큰 발행
     };
 
