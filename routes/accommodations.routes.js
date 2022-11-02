@@ -10,7 +10,7 @@ const upload = require('../middleware/upload_image')
 router.post("/", authMiddleware, upload.array('accImg', 5) ,accommoController.hostAccommodation);
 router.get("/", accommoController.getAllAccommodations);
 router.get("/:accId", accommoController.getAccommoDetails);
-router.patch("/:accId", accommoController.updateAccommo);
-router.delete("/:accId", accommoController.deleteAccommo);
+router.patch("/:accId", authMiddleware, upload.array('accImg', 5), accommoController.updateAccommo);
+router.delete("/:accId", authMiddleware, accommoController.deleteAccommo);
 
 module.exports = router;

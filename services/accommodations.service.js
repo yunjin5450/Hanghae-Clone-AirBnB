@@ -86,18 +86,37 @@ class AccommoService {
     };
     
     updateAccommo = async (
-        accId,
-        price,
-        description,
-        maxPerson,
-        bed,
-        room,
-        bathroom,
-        facilities,
-        accImg
+            fileData,
+            memberId,
+            accId,
+            accName,
+            accAddr,
+            price,
+            description,
+            maxPerson,
+            bed,
+            room,
+            bathroom,
+            facilities,
+        
     ) => {
+
+        const existAccommo = await this.accommoRepository.getAccommoDetails(accId)
+
+        if (existAccommo.memberId !== memberId) { throw new Error ('수정 권한이 없습니다')}
+
+        const accImg = fileData.map((data) => {
+            let result = [];
+                
+            result = data.location
+                
+            return result;
+        })
+
         const updatedAccommo = await this.accommoRepository.updateAccommo(
             accId,
+            accName,
+            accAddr,
             price,
             description,
             maxPerson,
@@ -107,7 +126,8 @@ class AccommoService {
             facilities,
             accImg
         );
-
+        
+        
         if (updatedAccommo) {
             return '숙소 정보를 수정했습니다.';
         } else {
@@ -115,8 +135,14 @@ class AccommoService {
         }
     };
 
-    deleteAccommo = async (accId) => {
+    deleteAccommo = async (memberId, accId) => {
+        
         const option = { where: { accId } };
+
+        const existAccommo = await this.accommoRepository.getAccommoDetails(accId)
+        
+        if (existAccommo.memberId !== memberId) { throw new Error ('삭제 권한이 없습니다')}
+
         const deletedAccommo = await this.accommoRepository.deleteAccommo(
             option
         );
