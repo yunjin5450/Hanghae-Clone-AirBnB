@@ -7,7 +7,7 @@ class NotificationsRepository {
     };
 
     getNotifications = async(memberId) => {
-        return await Notifications.findAll({where: {memberId}});
+        return await Notifications.findAll({where: {memberId}, order: [['notiId', 'DESC']]});
     };
 
     countNotifications = async(memberId) => {
