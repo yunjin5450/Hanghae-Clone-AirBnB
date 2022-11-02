@@ -12,10 +12,12 @@ class MembersController {
 
         try{
             const createMemberData = await this.membersService.createMember(authorization, fileData, memberEmail, password, nickname, name, gender, phoneNum);
-            
 
-            console.log("@@controller", createMemberData.memberId);
-            await this.notificationsService.sendSignUpCongrats(createMemberData.memberId, "가입을 축하드립니다!");
+            const message = createMemberData.name + "님, 가입을 진심으로 축하드립니다!"
+
+            await this.notificationsService.sendSignUpCongrats(createMemberData.memberId, message);
+            await this.notificationsService.sendSignUpCongrats(createMemberData.memberId, "전화번호 인증을 하시면 더욱 다양한 서비스를 즐기실 수 있습니다.");
+            await this.notificationsService.sendSignUpCongrats(createMemberData.memberId, "해변 도심 등 다양한 곳의 숙소를 찾아보세요.");
             res.status(201).send(createMemberData);
             
         } catch(error) {
@@ -63,6 +65,13 @@ class MembersController {
 
             res.status(400).json({error: error.message})
         };
+    };
+
+    loginInfo = async (req, res, next) => {
+        const { memberId } = res.locals.user;
+
+        const loginInfo = await this.membersService.loginInfo(memberId);
+        res.status(200).json({data: loginInfo});
     };
 
     getMyProfile = async(req, res, next)=> {

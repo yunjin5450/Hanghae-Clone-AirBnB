@@ -17,7 +17,9 @@ router.post('/checkId', membersController.duplicatedEmail);
 router.post('/checkname', membersController.duplicatedNickname);
 
 //4.로그인(토큰 발급)
-router.post('/login' ,membersController.loginUser);
+router.post('/login', membersController.loginUser);
+
+router.get('/loginInfo', authMiddleware, membersController.loginInfo);
 
 // 5. 마이페이지 (내 정보, 내 숙소예약정보, 내가 찜한 숙소, 내가 호스팅한 숙소)
 router.get('/me', authMiddleware, membersController.getMyProfile);
