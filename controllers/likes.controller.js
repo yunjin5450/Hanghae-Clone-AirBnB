@@ -21,7 +21,7 @@ class LikesController {
             const { accId } = req.params
             const { memberId } = res.locals.user
             const updateLikes = await this.likesService.updateLikes(accId, memberId)
-            res.status(200).json({message : updateLikes})
+            res.status(200).json(updateLikes)
         } catch(error) {
         res.status(400).json({error: error.message})
         }   
