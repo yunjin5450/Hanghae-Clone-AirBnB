@@ -14,11 +14,7 @@ createReservations = async(accId, memberId, personNum) => {
 
         if (personNum === '') {
             return {'message': '예약인원을 확인해주세요.'}
-        }
-
-        // if(findaccId === memberId && accId !== null){
-        // return {'message':'이미 예약 신청한 숙소입니다'}
-        // }   
+        } 
 
         await this.reservationsRepository.createReservations( 
             accId,
