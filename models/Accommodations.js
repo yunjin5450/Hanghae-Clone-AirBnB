@@ -97,7 +97,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     facilities: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     createdAt: {
         allowNull: false,

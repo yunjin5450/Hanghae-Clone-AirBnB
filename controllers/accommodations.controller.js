@@ -18,8 +18,7 @@ class AccommoController {
                 bathroom,
                 facilities,
                 } = req.body;
-            
-                
+
             const filesData = req.files;
 
             const hostedAccommo = await this.accommoService.hostAccommodation(
