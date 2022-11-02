@@ -1,4 +1,5 @@
 const MembersRepository = require('../repositories/members.repository');
+const NotificationsRepository = require('../repositories/notifications.repository');
 const jwt = require("jsonwebtoken");
 require('dotenv').config()
 const bcrypt = require('bcrypt');
@@ -6,6 +7,7 @@ const bcrypt = require('bcrypt');
 class MembersService {
 
     membersRepository = new MembersRepository();
+    notificationsRepository = new NotificationsRepository();
 
     exceptLogin = async(authorization)=> {
 
@@ -107,6 +109,11 @@ class MembersService {
         };  //토큰 발행
     };
 
+    loginInfo = async(memberId) => {
+        const loginInfo = await this.membersRepository.getMemberById(memberId);
+        const notificationsCount = await this.notificationsRepository.countNotifications(memberId);
+        return {loginInfo: loginInfo, notiCount: notificationsCount};
+    };
 
     getMyProfile = async(memberId) => {
 
