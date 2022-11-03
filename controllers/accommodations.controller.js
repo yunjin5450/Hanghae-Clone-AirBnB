@@ -1,4 +1,6 @@
 const AccommoService = require('../services/accommodations.service');
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
 
 class AccommoController {
     accommoService = new AccommoService();
@@ -70,13 +72,21 @@ class AccommoController {
     };
 
     getAccommoDetails = async (req, res, next) => {
+        const {authorization}  = req.headers;
+        const [authType, authToken] = (authorization || "").split(" ");
         try {
             const { accId } = req.params;
-            const accommoDetails = await this.accommoService.getAccommoDetails(accId);
+            if(authorization) {
+                const {memberId} = jwt.verify(authToken, process.env.SECRET_KEY);
+                const accommoDetails = await this.accommoService.getAccommoDetails(accId, memberId);
+                res.status(200).json(accommoDetails);
+            } else {
+                const accommoDetails = await this.accommoService.getAccommoDetails(accId);
+                res.status(200).json(accommoDetails);
+            }
 
-            res.status(200).json(accommoDetails);
         } catch (err) {
-            next(err);
+            res.status(400).json({errMessage: err.message})
         }
     };
 

@@ -70,12 +70,20 @@ class AccommoService {
         }
     };
 
-    getAccommoDetails = async (accId) => {
-        
-        const accommoDetails = await this.accommoRepository.getAccommoDetails(
-            accId
-        );
-        const accommoHost = await this.membersRepository.getMemberById(accommoDetails.memberId);
+    getAccommoDetails = async (accId, memberId) => {
+        let accommoDetails = {};
+        if(memberId) {
+            accommoDetails = await this.accommoRepository.getAccommoDetails(
+                accId, memberId
+            );
+        } else {
+            accommoDetails = await this.accommoRepository.getAccommoDetails(
+                accId
+                );
+            }
+            
+        console.log("@@@@@@service", accommoDetails.result.memberId);
+        const accommoHost = await this.membersRepository.getMemberById(accommoDetails.result.memberId);
         const accommoReviews = await this.reviewsRepository.getReview(accId);
 
         if (accommoDetails) {
