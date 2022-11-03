@@ -111,7 +111,7 @@ class AccommoService {
 
         const existAccommo = await this.accommoRepository.getAccommoDetails(accId)
 
-        if (existAccommo.memberId !== memberId) { throw new Error ('수정 권한이 없습니다')}
+        if (existAccommo.result.memberId !== memberId) { throw new Error ('수정 권한이 없습니다')}
 
         const accImg = fileData.map((data) => {
             let result = [];
@@ -148,8 +148,6 @@ class AccommoService {
         const option = { where: { accId } };
         
         const existAccommo = await this.accommoRepository.getAccommoDetails(accId);
-        console.log("@@@@service", existAccommo);
-        console.log("@@@@service", existAccommo.result.memberId);
         if (existAccommo.result.memberId !== memberId) { throw new Error ('삭제 권한이 없습니다')}
 
         const deletedAccommo = await this.accommoRepository.deleteAccommo(
