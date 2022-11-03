@@ -26,6 +26,7 @@ class MembersService {
         if(!memberEmail || !nickname || !password || !name || !phoneNum){ 
             throw new Error('필수 정보를 모두 입력해주세요')
         };  //예외처리. 공란
+        
         const encryptPassword = bcrypt.hashSync(password, 10)
         
         if(!fileData) {
