@@ -1,5 +1,6 @@
 const { Accommodations } = require('../models');
 const { AccommodationsPictures } = require('../models');
+const { Likes } = require('../models');
 
 class AccommoRepository {
     saveAccommodation = async (option, accImg) => {
@@ -29,13 +30,24 @@ class AccommoRepository {
         return await Accommodations.findAll({
             include: {model: AccommodationsPictures, attributes: ['thumbnail']}
 
-    });
+        });
     };
 
-    getAccommoDetails = async (accId) => {
-        const result = await Accommodations.findOne({where: {accId}, include: {model: AccommodationsPictures}});
-
-        return result
+    getAccommoDetails = async (accId, memberId) => {
+        let result = {};
+        if(memberId) {
+            result = await Accommodations.findOne({where: {accId}, include: [{model: AccommodationsPictures}]});
+            const likesData = await Likes.findAll({where: {accId, memberId}});
+            console.log("@@@@@repo", likesData);
+            if(likesData.length) {
+                return {result, likesData: true};
+            } else {
+                return {result, likesData: false};
+            }
+        } else {
+            result = await Accommodations.findOne({where: {accId}, include: [{model: AccommodationsPictures}]});
+            return result;
+        }
     };
 
     updateAccommo = async (
