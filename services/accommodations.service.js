@@ -80,9 +80,9 @@ class AccommoService {
             accommoDetails = await this.accommoRepository.getAccommoDetails(
                 accId
                 );
-            }
+            console.log("@@@@@@service", accommoDetails);
+        }
             
-        console.log("@@@@@@service", accommoDetails.result.memberId);
         const accommoHost = await this.membersRepository.getMemberById(accommoDetails.result.memberId);
         const accommoReviews = await this.reviewsRepository.getReview(accId);
 

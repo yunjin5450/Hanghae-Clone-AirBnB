@@ -46,7 +46,7 @@ class AccommoRepository {
             }
         } else {
             result = await Accommodations.findOne({where: {accId}, include: [{model: AccommodationsPictures}]});
-            return result;
+            return {result: result};
         }
     };
 
