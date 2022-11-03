@@ -29,8 +29,8 @@ class LikesRepository {
             for (let i = 0; i < findLikeAccommodationInfo.length; i++) {
                 
                 data.push(
-                    findLikeAccommodationInfo[i],
-                    findLikeAccommodationImg[i]
+                    {accommoInfo: findLikeAccommodationInfo[i],
+                    thumbnail: findLikeAccommodationImg[i]}
                 )
             }
 
