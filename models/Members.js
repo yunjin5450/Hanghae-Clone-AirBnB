@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Members extends Model {
     /**
@@ -10,17 +8,32 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Members.hasMany(models.Accommodations, {
+        foreignKey: "memberId",
+        // onDelete: "CASCADE",
+      });
+      Members.hasMany(models.Reservations, {
+        foreignKey: "memberId",
+        // onDelete: "CASCADE",
+      });
+      Members.hasMany(models.Reviews, {
+        foreignKey: "memberId",
+        // onDelete: "CASCADE",
+      });
+      Members.hasMany(models.Likes, {
+        foreignKey: "memberId",
+        // onDelete: "CASCADE",
+      });
     }
   }
   Members.init({
-    userId: {
+    memberId: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    userEmail: {
+    memberEmail: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
@@ -31,23 +44,25 @@ module.exports = (sequelize, DataTypes) => {
     },
     nickname: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     gender: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     phoneNum: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false
     },
-    userImg: {
+    memberImg: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
+      defaultValue: "https://a0.muscache.com/defaults/user_pic-225x225.png?v=3"
     },
     createdAt: {
       allowNull: false,
@@ -67,5 +82,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Members',
   });
+  
   return Members;
 };

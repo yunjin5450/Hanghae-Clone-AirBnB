@@ -17,6 +17,7 @@
   "homepage": "https://github.com/Thorjuri/week6_mini_BE#readme",
   "dependencies": {
     "aws-sdk": "^2.1239.0",
+    "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -33,5 +34,6 @@
     "nodemon": "^2.0.20",
     "prettier": "^2.7.1"
   },
-  "description": ""
+  "description": "항해7주차 클론코딩 프로젝트",
+  "keywords": []
 }

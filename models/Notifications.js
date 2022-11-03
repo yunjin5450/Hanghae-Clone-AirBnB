@@ -3,57 +3,33 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Reservations extends Model {
+  class Notifications extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Reservations.belongsTo(models.Members, {
+      Notifications.belongsTo(models.Members, {
         foreignKey: "memberId",
-        // onDelete: "CASCADE",
-      });
-      Reservations.belongsTo(models.Accommodations, {
-        foreignKey: "accId",
-        // onDelete: "CASCADE",
-      });
-      Reservations.hasOne(models.Reviews, {
-        foreignKey: "resId",
         // onDelete: "CASCADE",
       });
     }
   }
-  Reservations.init({
-    resId: {
+  Notifications.init({
+    notiId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER
-      },
-    accId: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      // references: {
-      //   model: 'Accommodations',
-      //   key: 'accId',
-      // }
     },
     memberId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    personNum:{
-      type: DataTypes.INTEGER,
+    content:{
+      type: DataTypes.STRING,
       allowNull: false
-    },
-    resCheckIn: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    resCheckOut: {
-      type: DataTypes.DATE,
-      allowNull: true,
     },
     createdAt: {
         allowNull: false,
@@ -71,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Reservations',
+    modelName: 'Notifications',
   });
-  return Reservations;
+  return Notifications;
 };

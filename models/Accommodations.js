@@ -10,7 +10,26 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Accommodations.belongsTo(models.Members, {
+        foreignKey: "memberId",
+        // onDelete: "CASCADE",
+      });
+      Accommodations.hasMany(models.Reservations, {
+        foreignKey: "accId",
+        // onDelete: "CASCADE",
+      });
+      Accommodations.hasMany(models.Reviews, {
+        foreignKey: "accId",
+        // onDelete: "CASCADE",
+      });
+      Accommodations.hasMany(models.Likes, {
+        foreignKey: "accId",
+        // onDelete: "CASCADE",
+      });
+      Accommodations.hasMany(models.AccommodationsPictures, {
+        foreignKey: "accId",
+        onDelete: "CASCADE",
+      });
     }
   }
   Accommodations.init({
@@ -20,17 +39,17 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    userId: {
+    memberId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: 'Members',
-        key: 'userId',
-      }
+      // references: {
+      //   model: 'Members',
+      //   key: 'userId',
+      // }
     },
     category:{
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     accName: {
       type: DataTypes.STRING,
@@ -40,6 +59,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    lat: {
+      type: DataTypes.DOUBLE,
+      allowNull: true
+    },
+    lng: {
+        type: DataTypes.DOUBLE,
+        allowNull: true
+    },
     description: {
       type: DataTypes.STRING,
       allowNull: false
@@ -48,13 +75,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    lat: {
-      type: DataTypes.DECIMAL,
+    rating: {
+      type: DataTypes.DOUBLE,
       allowNull: true
-    },
-    lng: {
-        type: DataTypes.DECIMAL,
-        allowNull: true
     },
     maxPerson: {
         type: DataTypes.INTEGER,
@@ -73,17 +96,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
     },
     facilities: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    accImg: {
         type: DataTypes.STRING,
-        allowNull: false
-    },
-    likesCount: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0
+        allowNull: true
     },
     createdAt: {
         allowNull: false,
@@ -96,7 +110,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.Now
     },
     deletedAt: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.DATE,
     }
   }, {
