@@ -5,22 +5,19 @@
 ### 에어 비앤비
 > 고객이 방을 빌리는 값을 주인에게 지불하고 이를 중개해준 에어비앤비는 수수료를 떼어가는 시스템으로 호스트가 에어베드 같은 잘 곳을 빌려 주고 같이 아침 식사도 하자는(Air Bed & Breakfast) 의미로 출발한 사이트이다.
 
-
 <br/>
 🔗 관련 링크
 
 - [FE Github](https://github.com/JaeyeoneeJ/DGBNB-FE)
-- [S.A](https://fog-cyclone-297.notion.site/3-SA-a0dcbb8473a04a219b3d0a51f0b19e4a)
-- [유튜브]()
 
 <br/>
 
 ### 1) 팀원
 
 | 포지션 | 이름 | 이메일 | 깃헙 주소 |
-| - | - | - | - |
-| Frontend, VL | 정은민 |  | https://github.com/Coswim |
-| Frontend | 정재연 |  | https://github.com/JaeyeoneeJ |
+|-----|----|-----|-----|
+| Frontend, VL | 정은민 | - | https://github.com/Coswim |
+| Frontend | 정재연 | - | https://github.com/JaeyeoneeJ |
 | Backend | 박민규 | alsrb7018@gmail.com | https://github.com/Sky-Park |
 | Backend | 백지영 | bazzy726@gmail.com | https://github.com/chamchimayo |
 | Backend | 최윤진 | yunjin5450@gmail.com | https://github.com/yunjin5450 |
@@ -32,23 +29,24 @@
     - 개발 기획
     - S,A 제출(API 명세서, 와이어 프레임, DB Schema 작성)
     - Github Repository 생성
+    
 - **10월 29일**
-    - [FE] : 
     - [BE] : members(회원가입, 로그인) API 구현
+    
 - **10월 30일(일요일)**
     - 즐거운 휴식 !
+    
 - **10월 31일**
-    - [FE] : 
     - [BE] : likes(찜하기), reviews(후기남기기) API 구현
+    
 - **11월 1일**
-    - [FE] : 
     - [BE] : users(비밀번호 암호화), likes(약국 좋아요 관련) 기능 구현 완료
+    
 - **11월 2일**
     - 프론트(서버)-백 연결 테스트
-    - [FE] : 
     - [BE] : accommodations(숙소호스팅), reservations(예약하기) API 구현
+    
 - **11월 3일(프로젝트 마감일)**
-    - [FE] : 
     - [BE] : 오류 수정
     - 발표
 
@@ -65,7 +63,6 @@
 
 ### 4) ERD
 ![DGBNB_ERD](https://user-images.githubusercontent.com/98001726/199684870-0c1e7206-2c06-4f12-88ca-cea1c04b5c4a.png)
-
 
 <br/>
 
@@ -115,7 +112,7 @@
 <br/>
 
 ### 6) 트러블 슈팅
-(1) DB에 한칼럼에 여러가지 정보를 저장할때의 문제  
+- ### DB에 한칼럼에 여러가지 정보를 저장할때의 문제  
 카테고리 라던지, 편의시설, 숙소 이미지등을 받아서 DB에 저장할때 request를 배열로 받아오다보니 그 배열을 그대로 DB에 저장 할 수 있을줄 알았는데, 직접해보니 RDBMS의 1정규형에 위반되어서 한 칼럼에 여러 정보를 저장하는건 불가능했다.
 따라서 어떻게 저장해야할지 고민했고, 저장해야할 값이 긴 이미지파일은 보기 좋게 테이블을 따로 구성해서 테이블간에 association을 만들어 줌으로써 해결했고, 편의시설 같은 경우 [ 드라이기, 에어컨, 선풍기 ] 등으로 들어오는 배열의 값 전체를 문자열로 전환해서 저장했다가 다시 내보낼때, 배열로 만들어서 내보내 주는 방식으로 해결하였다.
 
