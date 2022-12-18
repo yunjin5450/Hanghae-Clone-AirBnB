@@ -15,7 +15,7 @@
 ### 1) 팀원
 
 | 포지션 | 이름 | 이메일 | 깃헙 주소 |
-|-----|----|-----|-----|
+|:------:|:------:|:------:|:------:|
 | Frontend, VL | 정은민 | - | https://github.com/Coswim |
 | Frontend | 정재연 | - | https://github.com/JaeyeoneeJ |
 | Backend | 박민규 | alsrb7018@gmail.com | https://github.com/Sky-Park |
