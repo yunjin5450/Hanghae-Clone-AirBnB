@@ -1,11 +1,8 @@
 # DGBNB_BE
 항해7주차 클론코딩 프로젝트
 
-
 ### 에어 비앤비
 > 고객이 방을 빌리는 값을 주인에게 지불하고 이를 중개해준 에어비앤비는 수수료를 떼어가는 시스템으로 호스트가 에어베드 같은 잘 곳을 빌려 주고 같이 아침 식사도 하자는(Air Bed & Breakfast) 의미로 출발한 사이트이다.
-
-<br/>
 
 ### 1) 팀원
 
@@ -16,8 +13,6 @@
 | Backend | 박민규 | alsrb7018@gmail.com | https://github.com/Sky-Park |
 | Backend | 백지영 | bazzy726@gmail.com | https://github.com/chamchimayo |
 | Backend | 최윤진 | yunjin5450@gmail.com | https://github.com/yunjin5450 |
-
-<br/>
 
 ### 2) 진행 기간: 2022년 10월 28일 ~ 11월 3일
 - **10월 28일(프로젝트 시작일)**
@@ -45,8 +40,6 @@
     - [BE] : 오류 수정
     - 발표
 
-<br/>
-
 ### 3) 사용 기술
 - FE: react, redux-toolkit, redux-thunk, react-router-dom, tailwind
 - 와이어프레임 : 피그마
@@ -54,12 +47,9 @@
 - DB: mysql, sequelize
 - 배포: AWS EC2, nginx
 
-<br/>
 
 ### 4) ERD
 ![DGBNB_ERD](https://user-images.githubusercontent.com/98001726/199684870-0c1e7206-2c06-4f12-88ca-cea1c04b5c4a.png)
-
-<br/>
 
 ### 5) 주요 기능 요약
 
@@ -103,8 +93,6 @@
 - 숙소를 이용한 게스트는 후기 상세 조회 페이지에서 숙소 후기 작성 가능
 - 후기 작성은 숙소 이용한 게스트가 로그인 하여 작성 가능
 - 후기 수정, 삭제는 후기 작성한 해당 게스트만 가능
-
-<br/>
 
 ### 6) 트러블 슈팅
 - ### DB에 한칼럼에 여러가지 정보를 저장할때의 문제  
